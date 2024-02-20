@@ -1,0 +1,22 @@
+.flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.mail {
+  width: 100%;
+  margin-top: 5px;
+  outline: none;
+  padding: 0 10px;
+  height: 40px;
+  font-weight: 500;
+  border-radius: 8px;
+}
+.cart {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  color: #000;
+  border: 1px solid #333;
+  padding: 0.9px 20px;
+  border-radius: 10px;
+}
