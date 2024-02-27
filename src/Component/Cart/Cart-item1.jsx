@@ -10,53 +10,66 @@ const CartItems = (props) => {
     cartItems,
     removeFromCart,
     updateCartItemCount,
-    getTotal,
   } = useContext(ShopContext);
 
-  const total = getTotal();
+  const quantity = cartItems[id];
+  const total = quantity * price;
+
+  const handleIncrement = () => {
+    updateCartItemCount(quantity + 1, id);
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      updateCartItemCount(quantity - 1, id);
+    } else if (quantity === 1) {
+      removeFromCart(id);
+    }
+  };
 
   return (
-    <>
-      <div className="con">
-        <img src={image} alt={title} />
-        <div className="Container">
-          <h4>{category}</h4>
-          <h1>{title}</h1>
-          <p className="Rating">
-            Rating {rating && rating.rate}
-            <div className="star">
-              <FaStar className="icon" />
-              <FaStar className="icon" />
-              <FaStar className="icon" />
-              <FaStar className="icon" />
-              <FaStar className="icon" />
-            </div>
-            <div className="table">
-              <input
-                value={cartItems[id]}
-                onChange={(e) =>
-                  updateCartItemCount(Number(e.target.value), id)
-                }
-              />
-              <span>*</span>
-              <p className="Price">${price}</p>
-              <p className="equal">=</p>
-              {/* total of price and rate */}
-              <p className="total">${total}</p>
-            </div>
-            <div className="CountHandler">
-              <button className="add" onClick={() => removeFromCart(id)}>
-                -
-              </button>
-              <button className="remove" onClick={() => addToCart(id)}>
-                +
-              </button>
-            </div>
-            <p className="Description">{description}</p>
-          </p>
-        </div>
+    <div className="con">
+      <img src={image} alt={title} />
+      <div className="Container">
+        <h4>{category}</h4>
+        <h1>{title}</h1>
+        <p className="Rating">
+          Rating {rating && rating.rate}
+          <div className="star">
+            <FaStar className="icon" />
+            <FaStar className="icon" />
+            <FaStar className="icon" />
+            <FaStar className="icon" />
+            <FaStar className="icon" />
+          </div>
+          <div className="table">
+            <input
+              value={quantity}
+              onChange={(e) =>
+                updateCartItemCount(Number(e.target.value), id)
+              }
+            />
+            <span>*</span>
+            <p className="Price">${price}</p>
+            <p className="equal">=</p>
+            <p className="total">${total}</p>
+          </div>
+          <div className="CountHandler">
+            <button
+              className="add"
+              onClick={() => removeFromCart(id)}
+              disabled={quantity <= 0}
+            >
+              -
+            </button>
+            <button className="remove" onClick={() => addToCart(id)}>
+              +
+            </button>
+          </div>
+          <p className="Description">{description}</p>
+        </p>
       </div>
-    </>
+    </div>
   );
 };
 

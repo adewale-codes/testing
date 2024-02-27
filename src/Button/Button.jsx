@@ -4,7 +4,7 @@ import { ShopContext } from "../Context/Shop-Context";
 import PropTypes from "prop-types";
 
 const Button = ({ className, children, productId }) => {
-  const { addToCart } = useContext(ShopContext);
+  const { addToCart, cartItems } = useContext(ShopContext);
 
   return (
     <>
@@ -16,6 +16,7 @@ const Button = ({ className, children, productId }) => {
         >
           {children}
         </button>
+        <span className="quantity">{cartItems[productId]}</span>
       </div>
     </>
   );
